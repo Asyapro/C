@@ -1,4 +1,4 @@
-//здесь описаны алгоритмы критериев по Кнуту
+//Г§Г¤ГҐГ±Гј Г®ГЇГЁГ±Г Г­Г» Г Г«ГЈГ®Г°ГЁГІГ¬Г» ГЄГ°ГЁГІГҐГ°ГЁГҐГў ГЇГ® ГЉГ­ГіГІГі
 
 #include "pch.h"
 #include "Generator.cpp"
@@ -32,15 +32,15 @@ public:
 
 	~Criterions() {};
 
-	//заполнение категорий для критерия частот
+	//Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГ© Г¤Г«Гї ГЄГ°ГЁГІГҐГ°ГЁГї Г·Г Г±ГІГ®ГІ
 	void filling_categories(int value) {
 		categories[value]++; 
 	};
-	//заполнение категорий для критерия серий (используются пары чисел)
+	//Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГ© Г¤Г«Гї ГЄГ°ГЁГІГҐГ°ГЁГї Г±ГҐГ°ГЁГ© (ГЁГ±ГЇГ®Г«ГјГ§ГіГѕГІГ±Гї ГЇГ Г°Г» Г·ГЁГ±ГҐГ«)
 	void filling_categories(int value1, int value2) {
 		pairs[value1][value2]++; 
 	};
-	//заполнение категорий для критерия интервалов
+	//Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГ© Г¤Г«Гї ГЄГ°ГЁГІГҐГ°ГЁГї ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў
 	void filling_categories(Generator gen) {
 		interval_count.resize(amount_intervals);
 		int r = 0; int s = 0;
@@ -50,17 +50,17 @@ public:
 			value = gen.next();
 		
 			if (begin_interval <= value && value < end_interval) {
-				//интервал длиной r найден
+				//ГЁГ­ГІГҐГ°ГўГ Г« Г¤Г«ГЁГ­Г®Г© r Г­Г Г©Г¤ГҐГ­
 				if (r < amount_intervals) {
-					interval_count[r]++; //регистрируем интервал длиной r
+					interval_count[r]++; //Г°ГҐГЈГЁГ±ГІГ°ГЁГ°ГіГҐГ¬ ГЁГ­ГІГҐГ°ГўГ Г« Г¤Г«ГЁГ­Г®Г© r
 				}
 				else {
-					interval_count[amount_intervals - 1]++; //увеличиваем количество интервалов длиной >= t
+					interval_count[amount_intervals - 1]++; //ГіГўГҐГ«ГЁГ·ГЁГўГ ГҐГ¬ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў Г¤Г«ГЁГ­Г®Г© >= t
 				}
 
 				if (s == n) {
 					break;
-				} //нашли n интервалов, выходим из цикла
+				} //Г­Г ГёГ«ГЁ n ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў, ГўГ»ГµГ®Г¤ГЁГ¬ ГЁГ§ Г¶ГЁГЄГ«Г 
 				r = 0;
 				s++;
 			}
@@ -70,9 +70,9 @@ public:
 			}
 		}
 	};
-	//заполнение категорий для покер-критерия
+	//Г§Г ГЇГ®Г«Г­ГҐГ­ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГ© Г¤Г«Гї ГЇГ®ГЄГҐГ°-ГЄГ°ГЁГІГҐГ°ГЁГї
 	void filling_categories(vector <int> values) { 
-		vector <int> temp(amount_pokers); // количество чисел, индексы которых соответствуют индексам из values
+		vector <int> temp(amount_pokers); // ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® Г·ГЁГ±ГҐГ«, ГЁГ­Г¤ГҐГЄГ±Г» ГЄГ®ГІГ®Г°Г»Гµ Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГІ ГЁГ­Г¤ГҐГЄГ±Г Г¬ ГЁГ§ values
 		for (int i = 0; i < values.size() - 1; ++i) {
 			int count = 1;
 			for (int j = i + 1; j < values.size(); ++j) {
@@ -86,22 +86,22 @@ public:
 		}
 
 		if (count(temp.begin(), temp.end(), 1) == amount_pokers) 
-			pokers[4]++; //5 уникальных, нуль пар
+			pokers[4]++; //5 ГіГ­ГЁГЄГ Г«ГјГ­Г»Гµ, Г­ГіГ«Гј ГЇГ Г°
 		else if (count(temp.begin(), temp.end(), 2) == 1) 
-			pokers[3]++; //4 уникальных, одна пара
+			pokers[3]++; //4 ГіГ­ГЁГЄГ Г«ГјГ­Г»Гµ, Г®Г¤Г­Г  ГЇГ Г°Г 
 		else if (count(temp.begin(), temp.end(), 2) == 2 || count(temp.begin(), temp.end(), 3) == 1) 
-			pokers[2]++; //3 уникальных, одна пара или одна тройка
+			pokers[2]++; //3 ГіГ­ГЁГЄГ Г«ГјГ­Г»Гµ, Г®Г¤Г­Г  ГЇГ Г°Г  ГЁГ«ГЁ Г®Г¤Г­Г  ГІГ°Г®Г©ГЄГ 
 		else if (count(temp.begin(), temp.end(), 4) == 1 || (count(temp.begin(), temp.end(), 2) == 1  && count(temp.begin(), temp.end(), 3) == 1))
-			pokers[1]++; //2 уникальных, одна четверка или одна тройка+одна пара
+			pokers[1]++; //2 ГіГ­ГЁГЄГ Г«ГјГ­Г»Гµ, Г®Г¤Г­Г  Г·ГҐГІГўГҐГ°ГЄГ  ГЁГ«ГЁ Г®Г¤Г­Г  ГІГ°Г®Г©ГЄГ +Г®Г¤Г­Г  ГЇГ Г°Г 
 		else if (count(temp.begin(), temp.end(), 5) == 1) 
-			pokers[0]++; //1 уникальное
+			pokers[0]++; //1 ГіГ­ГЁГЄГ Г«ГјГ­Г®ГҐ
 	
 	};
 
-	//критерий частот
+	//ГЄГ°ГЁГІГҐГ°ГЁГ© Г·Г Г±ГІГ®ГІ
 	long double frequency_criterion() {
 		long double answer = 0.0;
-		double p = 1.0 / amount_categories; //вероятность попадания в соответствующие категории
+		double p = 1.0 / amount_categories; //ГўГҐГ°Г®ГїГІГ­Г®Г±ГІГј ГЇГ®ГЇГ Г¤Г Г­ГЁГї Гў Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГ№ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГЁ
 		#pragma omp parallel reduction (+: answer)
 		{
 		#pragma omp for
@@ -111,10 +111,10 @@ public:
 		}
 		return answer;
 	};
-	//критерий серий
+	//ГЄГ°ГЁГІГҐГ°ГЁГ© Г±ГҐГ°ГЁГ©
 	long double series_criterion() {
 		long double answer = 0.0;
-		double p = 1.0 / (amount_categories * amount_categories); //вероятность попадания в соответствующие категории (пары значений)
+		double p = 1.0 / (amount_categories * amount_categories); //ГўГҐГ°Г®ГїГІГ­Г®Г±ГІГј ГЇГ®ГЇГ Г¤Г Г­ГЁГї Гў Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГ№ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГЁ (ГЇГ Г°Г» Г§Г­Г Г·ГҐГ­ГЁГ©)
 		#pragma omp parallel reduction (+: answer)
 		{
 			#pragma omp for
@@ -126,7 +126,7 @@ public:
 		}
 		return answer;
 	};
-	//критерий интервалов
+	//ГЄГ°ГЁГІГҐГ°ГЁГ© ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў
 	long double interval_criterion() {
 		long double answer = 0;
 		double p = end_interval - begin_interval;
@@ -143,7 +143,7 @@ public:
 
 		return answer;
 	}
-	//покер-критерий
+	//ГЇГ®ГЄГҐГ°-ГЄГ°ГЁГІГҐГ°ГЁГ©
 	long double poker_criterion() {
 		long double answer = 0.0;
 
@@ -165,7 +165,7 @@ public:
 		return answer;
 	}
 
-	//вычисление чисел Стирлинга для покер-критерия
+	//ГўГ»Г·ГЁГ±Г«ГҐГ­ГЁГҐ Г·ГЁГ±ГҐГ« Г‘ГІГЁГ°Г«ГЁГ­ГЈГ  Г¤Г«Гї ГЇГ®ГЄГҐГ°-ГЄГ°ГЁГІГҐГ°ГЁГї
 	int stirling_numbers(int n, int k) {
 		if (n == k) {
 			return 1;
@@ -180,7 +180,7 @@ public:
 		}
 	}
 	
-	//геттеры для числовых полей
+	//ГЈГҐГІГІГҐГ°Г» Г¤Г«Гї Г·ГЁГ±Г«Г®ГўГ»Гµ ГЇГ®Г«ГҐГ©
 	long long getAmout_categories() {
 		return amount_categories;
 	}
@@ -202,16 +202,16 @@ public:
 	}
 
 private:
-	long long lenght_set; // длина последовательности
-	long long amount_categories; //количество категорий
-	long long amount_pairs; //параметр d для U = de
-	int amount_intervals; //параметр t, длины интервалов 0..t
-	long n; //количество интервалов
+	long long lenght_set; // Г¤Г«ГЁГ­Г  ГЇГ®Г±Г«ГҐГ¤Г®ГўГ ГІГҐГ«ГјГ­Г®Г±ГІГЁ
+	long long amount_categories; //ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЄГ ГІГҐГЈГ®Г°ГЁГ©
+	long long amount_pairs; //ГЇГ Г°Г Г¬ГҐГІГ° d Г¤Г«Гї U = de
+	int amount_intervals; //ГЇГ Г°Г Г¬ГҐГІГ° t, Г¤Г«ГЁГ­Г» ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў 0..t
+	long n; //ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў
 	double begin_interval, end_interval;
 	int amount_pokers;
 
-	vector <long long> categories; //количество попавших чиселок в соответствующие категории
-	vector < vector <long long> > pairs; //пары для критерия серий
-	vector <long long> interval_count; //счетчики количества интервалов определенной длины
-	vector < long long > pokers; //категории для покерного критерия
+	vector <long long> categories; //ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ® ГЇГ®ГЇГ ГўГёГЁГµ Г·ГЁГ±ГҐГ«Г®ГЄ Гў Г±Г®Г®ГІГўГҐГІГ±ГІГўГіГѕГ№ГЁГҐ ГЄГ ГІГҐГЈГ®Г°ГЁГЁ
+	vector < vector <long long> > pairs; //ГЇГ Г°Г» Г¤Г«Гї ГЄГ°ГЁГІГҐГ°ГЁГї Г±ГҐГ°ГЁГ©
+	vector <long long> interval_count; //Г±Г·ГҐГІГ·ГЁГЄГЁ ГЄГ®Г«ГЁГ·ГҐГ±ГІГўГ  ГЁГ­ГІГҐГ°ГўГ Г«Г®Гў Г®ГЇГ°ГҐГ¤ГҐГ«ГҐГ­Г­Г®Г© Г¤Г«ГЁГ­Г»
+	vector < long long > pokers; //ГЄГ ГІГҐГЈГ®Г°ГЁГЁ Г¤Г«Гї ГЇГ®ГЄГҐГ°Г­Г®ГЈГ® ГЄГ°ГЁГІГҐГ°ГЁГї
 };
